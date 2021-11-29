@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 import com.josrangel.sessionservicejava.service.CounterTimeoutSessionService;
@@ -28,9 +29,25 @@ public class SessionActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        rebootCounter();
+        return super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        rebootCounter();
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean dispatchKeyShortcutEvent(KeyEvent event) {
+        rebootCounter();
+        return super.dispatchKeyShortcutEvent(event);
+    }
+
+    private void rebootCounter(){
         stopService();
         initService();
-        return super.onTouchEvent(event);
     }
 
     private void stopService() {
